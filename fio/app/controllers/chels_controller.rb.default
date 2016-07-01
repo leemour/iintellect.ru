@@ -1,0 +1,74 @@
+class ChelsController < ApplicationController
+  before_action :set_chel, only: [:show, :edit, :update, :destroy]
+
+  # GET /chels
+  # GET /chels.json
+  def index
+    @chels = Chel.all
+  end
+
+  # GET /chels/1
+  # GET /chels/1.json
+  def show
+  end
+
+  # GET /chels/new
+  def new
+    @chel = Chel.new
+  end
+
+  # GET /chels/1/edit
+  def edit
+  end
+
+  # POST /chels
+  # POST /chels.json
+  def create
+    @chel = Chel.new(chel_params)
+
+    respond_to do |format|
+      if @chel.save
+        format.html { redirect_to @chel, notice: 'Chel was successfully created.' }
+        format.json { render :show, status: :created, location: @chel }
+      else
+        format.html { render :new }
+        format.json { render json: @chel.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /chels/1
+  # PATCH/PUT /chels/1.json
+  def update
+    respond_to do |format|
+      if @chel.update(chel_params)
+        format.html { redirect_to @chel, notice: 'Chel was successfully updated.' }
+        format.json { render :show, status: :ok, location: @chel }
+      else
+        format.html { render :edit }
+        format.json { render json: @chel.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /chels/1
+  # DELETE /chels/1.json
+  def destroy
+    @chel.destroy
+    respond_to do |format|
+      format.html { redirect_to chels_url, notice: 'Chel was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_chel
+      @chel = Chel.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def chel_params
+      params.require(:chel).permit(:fullname)
+    end
+end
